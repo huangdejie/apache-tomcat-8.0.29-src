@@ -63,6 +63,7 @@ public class Connector extends LifecycleMBeanBase  {
     }
 
     public Connector(String protocol) {
+        //根据不同的协议创建相应的handler
         setProtocol(protocol);
         // Instantiate protocol handler
         ProtocolHandler p = null;

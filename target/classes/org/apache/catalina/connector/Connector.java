@@ -63,6 +63,7 @@ public class Connector extends LifecycleMBeanBase  {
     }
 
     public Connector(String protocol) {
+        //根据不同的协议创建相应的handler
         setProtocol(protocol);
         // Instantiate protocol handler
         ProtocolHandler p = null;
@@ -938,13 +939,16 @@ public class Connector extends LifecycleMBeanBase  {
     @Override
     protected void initInternal() throws LifecycleException {
 
+        //将自己注册到JMX中
         super.initInternal();
 
         // Initialize adapter
         adapter = new CoyoteAdapter(this);
+        //设置适配器
         protocolHandler.setAdapter(adapter);
 
         // Make sure parseBodyMethodsSet has a default
+        //设置请求类型,默认为post类型
         if( null == parseBodyMethodsSet ) {
             setParseBodyMethods(getParseBodyMethods());
         }
@@ -957,6 +961,7 @@ public class Connector extends LifecycleMBeanBase  {
         }
 
         try {
+            //
             protocolHandler.init();
         } catch (Exception e) {
             throw new LifecycleException

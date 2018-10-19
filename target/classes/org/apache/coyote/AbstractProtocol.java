@@ -438,6 +438,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
             try {
                 tpOname = new ObjectName(domain + ":" +
                         "type=ThreadPool,name=" + getName());
+                //将endpoint注册到JMX中
                 Registry.getRegistry(null, null).registerComponent(endpoint,
                         tpOname, null);
             } catch (Exception e) {
@@ -452,6 +453,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
         }
 
         String endpointName = getName();
+        //设置endpoint的名字，如:http-bio-8080
         endpoint.setName(endpointName.substring(1, endpointName.length()-1));
 
         try {

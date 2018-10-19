@@ -1168,6 +1168,7 @@ public class Digester extends DefaultHandler2 {
         // Fire "begin" events for all relevant rules
         List<Rule> rules = getRules().match(namespaceURI, match);
         matches.push(rules);
+        //rule就是之前Catalina中createStartDigester()方法创建的
         if ((rules != null) && (rules.size() > 0)) {
             for (int i = 0; i < rules.size(); i++) {
                 try {

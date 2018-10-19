@@ -412,6 +412,7 @@ public class NioEndpoint extends AbstractEndpoint<NioChannel> {
 
             // Create worker collection
             if ( getExecutor() == null ) {
+                //仅仅创建线程池
                 createExecutor();
             }
 
@@ -530,8 +531,9 @@ public class NioEndpoint extends AbstractEndpoint<NioChannel> {
             //disable blocking, APR style, we are gonna be polling it
             socket.configureBlocking(false);
             Socket sock = socket.socket();
+            //设置socket信息
             socketProperties.setProperties(sock);
-
+            //获取nioChannel,若无则创建
             NioChannel channel = nioChannels.pop();
             if ( channel == null ) {
                 // SSL setup
@@ -694,6 +696,7 @@ public class NioEndpoint extends AbstractEndpoint<NioChannel> {
                     // setSocketOptions() will add channel to the poller
                     // if successful
                     if (running && !paused) {
+                        //将socket扔到poller中
                         if (!setSocketOptions(socket)) {
                             countDownConnection();
                             closeSocket(socket);
@@ -1000,6 +1003,7 @@ public class NioEndpoint extends AbstractEndpoint<NioChannel> {
             while (true) {
                 try {
                     // Loop if endpoint is paused
+                    //若是暂停状态，让poller线程休眠
                     while (paused && (!close) ) {
                         try {
                             Thread.sleep(100);

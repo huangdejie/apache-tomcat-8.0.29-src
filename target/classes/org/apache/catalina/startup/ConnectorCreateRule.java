@@ -53,12 +53,13 @@ public class ConnectorCreateRule extends Rule {
      */
     @Override
     public void begin(String namespace, String name, Attributes attributes)
-            throws Exception {
+            throws Exception {//会走两次，分别创建http连接器、ajp连接器
         Service svc = (Service)digester.peek();
         Executor ex = null;
         if ( attributes.getValue("executor")!=null ) {
             ex = svc.getExecutor(attributes.getValue("executor"));
         }
+        //构造连接器
         Connector con = new Connector(attributes.getValue("protocol"));
         if ( ex != null )  _setExecutor(con,ex);
 

@@ -453,6 +453,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
         }
 
         String endpointName = getName();
+        //设置endpoint的名字，如:http-bio-8080
         endpoint.setName(endpointName.substring(1, endpointName.length()-1));
 
         try {

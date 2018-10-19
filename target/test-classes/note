@@ -1,0 +1,3 @@
+Acceptor:负责监听并接收Socket的链接，由Acceptor来控制socket数目
+Poller:负责处理已建立连接的socket，将channel封装后，提交至线程池来处理
+Executor:处理socket请求的线程
