@@ -85,7 +85,7 @@ public class InternalInputBuffer extends AbstractInputBuffer<Socket> {
      * Read the request line. This function is meant to be used during the
      * HTTP request header parsing. Do NOT attempt to read the request body
      * using it.
-     *
+     *解析报文
      * @throws IOException If an exception occurs during the underlying socket
      * read operations, or if the given buffer is not big enough to accommodate
      * the whole line.
@@ -145,6 +145,7 @@ public class InternalInputBuffer extends AbstractInputBuffer<Socket> {
             // Spec says single SP but it also says be tolerant of HT
             if (buf[pos] == Constants.SP || buf[pos] == Constants.HT) {
                 space = true;
+                //其实调用的时ByteChunk(字节块)的setBytes方法
                 request.method().setBytes(buf, start, pos - start);
             }
 
@@ -542,6 +543,7 @@ public class InternalInputBuffer extends AbstractInputBuffer<Socket> {
             }
             pos = end;
             lastValid = pos;
+            //inputStream是socket的输入流
             nRead = inputStream.read(buf, pos, buf.length - lastValid);
             if (nRead > 0) {
                 lastValid = pos + nRead;

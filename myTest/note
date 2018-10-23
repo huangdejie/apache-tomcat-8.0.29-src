@@ -1,3 +1,6 @@
 Acceptor:负责监听并接收Socket的链接，由Acceptor来控制socket数目
 Poller:负责处理已建立连接的socket，将channel封装后，提交至线程池来处理
 Executor:处理socket请求的线程
+    共享Executor:多个Connector可以共享一个Connector(Service中),在xml中配置
+    私有Executor:每个Connector都是使用自己独有的线程池
+ SocketProcessor:处理套接字并响应客户端,连接数计数器减1,关闭socket

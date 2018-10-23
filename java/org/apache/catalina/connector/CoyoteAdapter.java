@@ -510,6 +510,7 @@ public class CoyoteAdapter implements Adapter {
             // Parse and set Catalina and configuration specific
             // request parameters
             req.getRequestProcessor().setWorkerThreadName(THREAD_NAME.get());
+            //解析请求内容
             boolean postParseSuccess = postParseRequest(req, request, res, response);
             if (postParseSuccess) {
                 //check valves if we support async
