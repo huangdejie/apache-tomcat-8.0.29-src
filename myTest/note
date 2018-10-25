@@ -4,3 +4,6 @@ Executor:处理socket请求的线程
     共享Executor:多个Connector可以共享一个Connector(Service中),在xml中配置
     私有Executor:每个Connector都是使用自己独有的线程池
  SocketProcessor:处理套接字并响应客户端,连接数计数器减1,关闭socket
+ Http11Processor:http阻塞处理器(提供了对http协议通信的处理)
+    包括对套接字的读写和过滤,对http协议的解析及封装成请求对象,http协议响应对象的生成等操作
+    1)套接字输入缓冲:InternalInputBuffer

@@ -529,11 +529,13 @@ public class NioEndpoint extends AbstractEndpoint<NioChannel> {
         // Process the connection
         try {
             //disable blocking, APR style, we are gonna be polling it
+            //设置为非阻塞
             socket.configureBlocking(false);
             Socket sock = socket.socket();
             //设置socket信息
             socketProperties.setProperties(sock);
-            //获取nioChannel,若无则创建
+            //获取nioChannel(非阻塞通道对象),若无则创建
+            //每个连接都有一个nioChannel,因此会经常创建及销毁nioChannel对象,需要将其放入队列中
             NioChannel channel = nioChannels.pop();
             if ( channel == null ) {
                 // SSL setup
@@ -1444,6 +1446,7 @@ public class NioEndpoint extends AbstractEndpoint<NioChannel> {
             this.status = status;
         }
 
+        //使用nio模式读取套接字并对报文进行解析及处理,然后用BIO模式对套接字写入响应报文,处理完成后要将连接数减1并关闭socket
         @Override
         public void run() {
             NioChannel socket = ka.getSocket();

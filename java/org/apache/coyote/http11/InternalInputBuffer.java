@@ -128,7 +128,7 @@ public class InternalInputBuffer extends AbstractInputBuffer<Socket> {
         //
 
         boolean space = false;
-
+        //解析请求方法名
         while (!space) {
 
             // Read new bytes if needed
@@ -543,7 +543,8 @@ public class InternalInputBuffer extends AbstractInputBuffer<Socket> {
             }
             pos = end;
             lastValid = pos;
-            //inputStream是socket的输入流
+            //inputStream是socket的输入流,读取buf.length-lastValid长度的字节流,
+            //并且将这些字节流存入buf数组中,nRead表示实际读取到的字节数
             nRead = inputStream.read(buf, pos, buf.length - lastValid);
             if (nRead > 0) {
                 lastValid = pos + nRead;
@@ -567,6 +568,7 @@ public class InternalInputBuffer extends AbstractInputBuffer<Socket> {
     /**
      * This class is an input buffer which will read its data from an input
      * stream.
+     * 用来读取http请求体
      */
     protected class InputStreamInputBuffer
         implements InputBuffer {
