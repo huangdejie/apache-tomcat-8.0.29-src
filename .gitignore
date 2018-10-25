@@ -33,6 +33,10 @@ mvn.properties
 *.asc
 *.jj
 *.tmp
+*target*
+*.war
+*.ear
+*.class
 maven-ant-tasks-*.jar
 thumbs.db
 Thumbs.db
